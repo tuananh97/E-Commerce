@@ -29,7 +29,7 @@ Route::group(['middleware' => ['auth']],function(){
     Route::match(['get','post'],'/admin/update-pwd','AdminController@updatePassword');
     //2
     Route::match(['get','post'],'/admin/add-category','CategoryController@addCategory');
-  
+    Route::get('/admin/view-categories','CategoryController@viewCategories'); 
 
 });
 
