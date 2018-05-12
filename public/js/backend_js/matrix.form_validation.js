@@ -135,4 +135,14 @@ $(document).ready(function(){
 			$(element).parents('.control-group').addClass('success');
 		}
 	});
+
+    $("#delCat").click(function(){
+		
+		if(confirm('Bạn có thực sự muốn xóa Cate ?')){
+			return true;
+		}
+		return false;
+	});
+
+
 });
