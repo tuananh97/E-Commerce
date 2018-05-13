@@ -79,6 +79,94 @@ $(document).ready(function(){
 		}
 	});
 
+		// Edit Category Validation
+		$("#edit_category").validate({
+			rules:{
+				category_name:{
+					required:true
+				},
+				description:{
+					required:true,
+				
+				},
+				
+				url:{
+					required:true,
+				
+				}
+			},
+			errorClass: "help-inline",
+			errorElement: "span",
+			highlight:function(element, errorClass, validClass) {
+				$(element).parents('.control-group').addClass('error');
+			},
+			unhighlight: function(element, errorClass, validClass) {
+				$(element).parents('.control-group').removeClass('error');
+				$(element).parents('.control-group').addClass('success');
+			}
+		});
+
+			// Add Product Validation
+			$("#add_product").validate({
+				rules:{
+					category_id:{
+						required:true
+					},
+					product_name:{
+						required:true
+					},
+					product_code:{
+						required:true
+					},
+					product_color:{
+						required:true
+					},
+					price:{
+						required:true,
+					    number:true
+					}
+				},
+				errorClass: "help-inline",
+				errorElement: "span",
+				highlight:function(element, errorClass, validClass) {
+					$(element).parents('.control-group').addClass('error');
+				},
+				unhighlight: function(element, errorClass, validClass) {
+					$(element).parents('.control-group').removeClass('error');
+					$(element).parents('.control-group').addClass('success');
+				}
+			});
+
+					// Edit Product Validation
+					$("#edit_product").validate({
+						rules:{
+							category_id:{
+								required:true
+							},
+							product_name:{
+								required:true
+							},
+							product_code:{
+								required:true
+							},
+							product_color:{
+								required:true
+							},
+							price:{
+								required:true,
+								number:true
+							}
+						},
+						errorClass: "help-inline",
+						errorElement: "span",
+						highlight:function(element, errorClass, validClass) {
+							$(element).parents('.control-group').addClass('error');
+						},
+						unhighlight: function(element, errorClass, validClass) {
+							$(element).parents('.control-group').removeClass('error');
+							$(element).parents('.control-group').addClass('success');
+						}
+					});	
 	$("#number_validate").validate({
 		rules:{
 			min:{
@@ -143,6 +231,35 @@ $(document).ready(function(){
 		}
 		return false;
 	});
-
-
+    /*$("#delProduct").click(function(){
+		
+		if(confirm('Bạn có thực sự muốn xóa Cate ?')){
+			return true;
+		}
+		return false;
+	});
+    */
+   $(document).on('click','.deleteRecord',function(e){
+	   var id = $(this).attr('rel');
+	   var deleteFunction = $(this).attr('rel1');
+	   swal({
+		title: 'Bạn có chắc chắn xóa sản phầm này?',
+		type: 'warning',
+		showCloseButton: true,
+		showCancelButton: true,
+		focusConfirm: false,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Yes, delete it!',
+		cancelButtonText: 'No, cancel!' ,
+		confirmButtonClass: 'btn btn-success',
+		cancelButtonClass: 'btn btn-danger',
+		buttonsStyling: false,
+		reverseButtons: true
+	  },
+	  function(){
+           window.location.href="/admin/"+deleteFunction+"/"+id;
+	  });
+   });
+   
 });

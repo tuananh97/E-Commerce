@@ -15,14 +15,15 @@ class CategoryController extends Controller
             $data = $request->all();
             $category = new Categories;
             $category->name = $data['category_name'];
+            $category->parent_id = $data['parent_id'];
             $category->description = $data['description'];
             $category->url = $data['url'];
             $category->save();
             return redirect('/admin/view_categories')->with('flash_messsage_success','Category added successfully!');
         }
 
-        
-        return view('admin.categories.add_category');
+        $levels = Categories::where(['parent_id'=>0])->get();
+        return view('admin.categories.add_category')->with(compact('levels'));
     }
 
 
@@ -30,14 +31,15 @@ class CategoryController extends Controller
         if($request->isMethod('post')){
             $data = $request->all();
 
-            Categories::where(['id'=>$id])->update(['name'=>$data['category_name'],'description'=>$data['description'],'url'=>$data['url']
-            ]);
+            Categories::where(['id'=>$id])->update(['name'=>$data['category_name'],'description'=>$data['description'],'url'=>$data['url'],'parent_id'=>$data['parent_id']]
+            );
             
         return redirect('/admin/view_categories')->with('flash_messsage_success','Category updated successfully!');
         }
        
         $categoryDetails = Categories::where(['id'=> $id])->first();
-        return view('admin.categories.edit_category')->with(compact('categoryDetails'));
+        $levels = Categories::where(['parent_id'=>0])->get();
+        return view('admin.categories.edit_category')->with(compact('categoryDetails','levels'));
     }     
     
     public function deleteCategory(Request $request, $id  = null){
